@@ -2,34 +2,36 @@
 use integrs::{LeftRiemann, RightRiemann, Midpoint, Integrator};
 
 fn main() {
-    let lr = LeftRiemann;
-    let rr = RightRiemann;
-    let mp = Midpoint;
 
+    let truth = 1.0;
 
-    let result = lr.integrate(
+    let scheme = LeftRiemann;
+    let result = scheme.integrate(
         |x| x.sin(),
         0.0,
         std::f64::consts::PI / 2.0,
         10000,
     );
 
-    let result2 = rr.integrate(
+    let scheme = RightRiemann;
+    let result2 = scheme.integrate(
         |x| x.sin(),
         0.0,
         std::f64::consts::PI / 2.0,
         10000,
     );
 
-    let result3 = mp.integrate(
+    let scheme = Midpoint;
+    let result3 = scheme.integrate(
         |x| x.sin(),
         0.0,
         std::f64::consts::PI / 2.0,
         10000,
     );
 
-    println!("result: {result}");
-    println!("result2: {result2}");
-    println!("result3: {result3}");
+    println!("Right Riemann: {result}, residual: {residual}", result=result, residual=(result - truth).abs());
+    println!("Left Riemann: {result2}, residual: {residual}", result2=result2, residual=(result2 - truth).abs());
+    println!("Midpoint: {result3}, residual: {residual}", result3=result3, residual=(result3 - truth).abs());
+    
 }
 
