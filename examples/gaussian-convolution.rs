@@ -4,12 +4,13 @@ use plotters::prelude::*;
 
 fn main() {
     let integrator = Midpoint;
-
-    let mut conv = Vec::with_capacity(200);   
-
+    
     let x_min = -10.0;
     let x_max = 10.0;
     let n_steps = 10000;
+
+    let mut conv = Vec::with_capacity(n_steps);   
+
     for i in 0..n_steps {
         let x_value = (x_max - x_min) * i as f64 / n_steps as f64 + x_min;
         let f = |x: f64| {
