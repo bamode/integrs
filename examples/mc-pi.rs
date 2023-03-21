@@ -21,19 +21,28 @@ fn main() {
 
     println!("finished calculating");
 
-    let points_in: Vec<(f64, f64)> = points.iter().map(|x| *x).filter(|(x, y)| x * x + y * y <= 1.0).collect();
-    let points_out: Vec<(f64, f64)> = points.iter().map(|x| *x).filter(|(x, y)| x * x + y * y > 1.0).collect();
+    let points_in = points
+        .iter()
+        .map(|x| *x)
+        .filter(|(x, y)| x * x + y * y <= 1.0)
+        .collect::<Vec<(f64, f64)>>();
+    let points_out = points
+        .iter()
+        .map(|x| *x)
+        .filter(|(x, y)| x * x + y * y > 1.0)
+        .collect::<Vec<(f64, f64)>>();
 
     let trace_in = Scatter::new(
         points_in.iter().map(|(x, _)| *x).collect(),
-        points_in.iter().map(|(_, y)| *y).collect()
+        points_in.iter().map(|(_, y)| *y).collect(),
     )
     .mode(Mode::Markers)
     .name("Inner Points");
 
-    let trace_out = Scatter::new(
+    let trace_out = 
+    Scatter::new(
         points_out.iter().map(|(x, _)| *x).collect(),
-        points_out.iter().map(|(_, y)| *y).collect()
+        points_out.iter().map(|(_, y)| *y).collect(),
     )
     .mode(Mode::Markers)
     .name("Outer Points");

@@ -40,8 +40,9 @@ impl MonteCarlo2D {
         x_range: (f64, f64),
         y_range: (f64, f64),
         iterations: usize,
-    ) -> (Vec<(f64, f64)>, f64) 
-    where F: Fn(f64, f64) -> f64
+    ) -> (Vec<(f64, f64)>, f64)
+    where
+        F: Fn(f64, f64) -> f64,
     {
         let mut accum = 0.0;
         let mut points = Vec::with_capacity(iterations);
@@ -52,13 +53,12 @@ impl MonteCarlo2D {
         for _ in 0..iterations {
             let x = self.rng.gen_range(x_range.0..=x_range.1);
             let y = self.rng.gen_range(y_range.0..=x_range.1);
-            
+
             points.push((x, y));
             accum += f(x, y);
         }
 
         (points, v * accum / n)
-
     }
 }
 
