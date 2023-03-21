@@ -1,3 +1,5 @@
+mod mc;
+
 pub trait Integrator {
     fn integrate<F>(&self, f: F, a: f64, b: f64, n_steps: usize) -> f64
     where
@@ -98,7 +100,6 @@ impl Integrator2D for LeftRiemann2D {
     }
 }
 
-
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -107,13 +108,7 @@ mod tests {
     fn test_2d_left_riemann_accuracy() {
         let lr2d = LeftRiemann2D;
 
-        let res = lr2d.integrate(
-            |x, y| x + y,
-            (0.0, 1.0),
-            (0.0, 1.0),
-            10000,
-            10000,
-        );
+        let res = lr2d.integrate(|x, y| x + y, (0.0, 1.0), (0.0, 1.0), 10000, 10000);
 
         assert!((1.0 - res).abs() < 1e-3);
     }
