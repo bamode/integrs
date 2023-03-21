@@ -1,4 +1,4 @@
-mod mc;
+pub mod mc;
 
 pub trait Integrator {
     fn integrate<F>(&self, f: F, a: f64, b: f64, n_steps: usize) -> f64

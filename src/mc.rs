@@ -9,7 +9,7 @@ impl MonteCarlo2D {
         Self { rng: thread_rng() }
     }
 
-    fn integrate<F>(
+    pub fn integrate<F>(
         &mut self,
         f: F,
         x_range: (f64, f64),
@@ -32,6 +32,33 @@ impl MonteCarlo2D {
         }
 
         v * accum / n
+    }
+
+    pub fn integrate_and_return_points<F>(
+        &mut self,
+        f: F,
+        x_range: (f64, f64),
+        y_range: (f64, f64),
+        iterations: usize,
+    ) -> (Vec<(f64, f64)>, f64) 
+    where F: Fn(f64, f64) -> f64
+    {
+        let mut accum = 0.0;
+        let mut points = Vec::with_capacity(iterations);
+
+        let v = (x_range.1 - x_range.0).abs() * (y_range.1 - y_range.0).abs();
+        let n = iterations as f64;
+
+        for _ in 0..iterations {
+            let x = self.rng.gen_range(x_range.0..=x_range.1);
+            let y = self.rng.gen_range(y_range.0..=x_range.1);
+            
+            points.push((x, y));
+            accum += f(x, y);
+        }
+
+        (points, v * accum / n)
+
     }
 }
 
